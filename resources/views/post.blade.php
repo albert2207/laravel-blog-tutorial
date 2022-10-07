@@ -1,7 +1,7 @@
 <!doctype html>
 <title>My Blog</title>
 <link rel="stylesheet" href="/app.css">
-<script src="/app.js"></script>
 <body>
-    Hello world
+ <?= $post ?>
+<a href="/">Go Back</a>
 </body>
