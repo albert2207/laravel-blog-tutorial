@@ -2,35 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Post
+class Post extends Model
 {
-    /**
-     * @param $slug
-     * @return mixed
-     * @throws \Exception
-     */
-    public static function find($slug) {
-        if(!file_exists( $path = resource_path( "/posts/$slug.html"))) {
-            throw new ModelNotFoundException();
-        }
+    use HasFactory;
+    protected $guarded = [];
+    //protected $guarded = ['id'];
+    //protected $fillable = ['title'];
 
-        return cache()->remember("posts.{$slug}",now()->addMinutes(20), function () use ($path) {
-            return file_get_contents($path);
-        });
+    /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     /**
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public static function all(): array {
-        $files = File::files( resource_path( "/posts"));
-
-        return array_map(function ($file){
-            return file_get_contents($file);
-        },$files);
+    public function category() {
+        return $this->belongsTo(Category::class);
     }
-
 }
