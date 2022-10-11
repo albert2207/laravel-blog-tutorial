@@ -20,5 +20,5 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - **php artisan make:factory CommentFactory** - Creates Comment CommentFactory file
 - 1) **php artisan tinker**
 
-  2) **App\Models\Comment::factory()->create()** - Adds fake content in the comment table
+  2) **App\Models\Post::factory()->create(['category_id' => 1])** - Adds fake content in the comment table
 
